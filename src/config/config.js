@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-expressions */
 import dotenv from 'dotenv';
 
-dotenv().config;
+dotenv.config();
 
 export default {
   development: {
