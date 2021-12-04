@@ -18,7 +18,7 @@ export const getAllCtrl = async (rep, res, next) => {
 };
 // Obtener un usuario por su id
 export const getByIdCtrl = async (req, res, next) => {
-  const id = parseInt(req.param.id, 10);
+  const id = parseInt(req.params.id, 10);
   try {
     const user = await getById(id);
     res.json(user);
@@ -28,8 +28,8 @@ export const getByIdCtrl = async (req, res, next) => {
 };
 // Agregar a un usuario
 export const addCtrl = async (req, res, next) => {
-  const obj = req.body;
   try {
+    const obj = req.body;
     const newUser = await add(obj);
     res.json(newUser);
   } catch (error) {
@@ -38,10 +38,10 @@ export const addCtrl = async (req, res, next) => {
 };
 // Actualizar un usuario por su id
 export const updateCtrl = async (req, res, next) => {
-  const id = parseInt(req.param.id, 10);
+  const id = parseInt(req.params.id, 10);
   const obj = req.body;
   try {
-    const updUser = await update(obj, { where: { id } });
+    const updUser = await update(id, obj);
     res.json(updUser);
   } catch (error) {
     next(error);
@@ -49,7 +49,7 @@ export const updateCtrl = async (req, res, next) => {
 };
 // Eliminar a un usuatio por su id
 export const delCtrl = async (req, res, next) => {
-  const id = parseInt(req.param.id, 10);
+  const id = parseInt(req.params.id, 10);
   try {
     const delUser = await del(id);
     res.json(delUser);

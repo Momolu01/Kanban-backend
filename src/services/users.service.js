@@ -43,7 +43,7 @@ export const update = async (id, obj) => {
 // Eliminar a un usuatio por su id
 export const del = async (id) => {
   try {
-    const result = await users.delete({ where: { id } });
+    const result = await users.destroy({ where: { id } });
     return result;
   } catch (error) {
     throw error;
