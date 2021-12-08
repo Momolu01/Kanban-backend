@@ -69,7 +69,7 @@ export const getNext = async (id) => {
   try {
     const result = await status.findone({
       where: {
-        after_staus: id,
+        after_status: id,
       },
     });
     return result;
@@ -79,7 +79,26 @@ export const getNext = async (id) => {
 };
 
 // Actualizar status
-export const update = async (id, obj) => {};
+export const update = async (id, obj) => {
+  try {
+    const statusA = await status.findByPk(id);
+    const statusB = await getNext(id);
+    if (statusA.id === (await getFirst()) && obj.status === statusB.id) {
+      const statusC = await getNext(statusB.id);
+      await status.update({ after_status: 0 }, { where: { id: statusB.id } });
+      await status.update(
+        { after_status: statusB.id },
+        { where: { id: statusA.id } },
+      );
+      await status.update(
+        { after_status: statusA.id },
+        { where: { id: statusC.id } },
+      );
+    }
+  } catch (error) {
+    throw error;
+  }
+};
 
 // Eliminar un status
 export const del = async (id) => {};
